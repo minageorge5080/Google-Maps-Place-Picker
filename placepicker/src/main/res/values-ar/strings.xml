@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Place Picker</string>
+    <string name="select_this_location">اختر هذا الموقع</string>
+    <string name="near_by_places">المواقع المجاورة</string>
+    <string name="pick_a_place">اختر موقع</string>
+</resources>

@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Place Picker</string>
+    <string name="select_this_location">Select this location</string>
+    <string name="near_by_places">NEAR BY PLACES</string>
+    <string name="pick_a_place">Pick a place</string>
+</resources>
