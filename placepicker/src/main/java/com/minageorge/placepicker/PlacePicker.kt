@@ -7,7 +7,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.RawRes
 import com.minageorge.placepicker.data.PlacePickerConstants
 
-class PlacePicker {
+class PlacePickerIntentBuilder {
 
     private lateinit var activity: Activity
     private var showLatLong: Boolean = false
