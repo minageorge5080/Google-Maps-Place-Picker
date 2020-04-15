@@ -52,7 +52,7 @@ class PlacePicker {
     fun setMapType(placePickerMapType: PlacePickerMapType) = apply { this.placePickerMapType = placePickerMapType }
 
 
-    fun show(activity: Activity,resultCode: Int) {
+    fun build(activity: Activity) :Intent{
         this.activity = activity
         val intent = Intent(activity, PlacePickerActivity::class.java)
         intent.putExtra(PlacePickerConstants.ADDRESS_REQUIRED_INTENT, addressRequired)
@@ -72,6 +72,6 @@ class PlacePicker {
         intent.putExtra(PlacePickerConstants.ONLY_COORDINATES_INTENT, onlyCoordinates)
         intent.putExtra(PlacePickerConstants.GOOGLE_API_KEY, googleApiKey)
         intent.putExtra(PlacePickerConstants.SEARCH_BAR_ENABLE, searchBarEnable)
-        activity.startActivityForResult(intent,resultCode)
+        return intent
     }
 }
