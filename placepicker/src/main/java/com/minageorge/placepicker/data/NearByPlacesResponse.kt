@@ -3,7 +3,7 @@ package com.minageorge.placepicker.data
 data class NearByPlacesResponse(
     val html_attributions: List<Any>,
     val next_page_token: String,
-    val results: List<Result>,
+    val results: List<Result>?,
     val status: String
 )
 

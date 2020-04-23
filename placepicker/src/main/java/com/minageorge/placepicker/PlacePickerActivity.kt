@@ -58,7 +58,7 @@ class PlacePickerActivity : AppCompatActivity() {
     private var zoom = PlacePickerConstants.DEFAULT_ZOOM
     private var addressRequired: Boolean = true
     private var shortAddress = ""
-    private var fullAddress = ""
+    private var language = ""
     private var googleApiKey: String? = null
     private var searchBarEnable: Boolean = false
     private var hideMarkerShadow = false
@@ -289,7 +289,7 @@ class PlacePickerActivity : AppCompatActivity() {
         AndroidNetworking.cancel("nearByPlaces")
         AndroidNetworking.get("https://maps.googleapis.com/maps/api/place/nearbysearch/json")
             .addQueryParameter("location", "${latLng.latitude},${latLng.longitude}")
-            .addQueryParameter("language", Locale.getDefault().language)
+            .addQueryParameter("language", language)
             .addQueryParameter("radius", "10000")
             .addQueryParameter("key", googleApiKey)
             .addHeaders("Accept", "application/json")
@@ -302,9 +302,7 @@ class PlacePickerActivity : AppCompatActivity() {
                     response?.let {
                         val results: NearByPlacesResponse? =
                             Gson().fromJson(it.toString(), NearByPlacesResponse::class.java)
-                        results?.let {
-                            nearByPlacesAdapter.pushData(it.results)
-                        }
+                        nearByPlacesAdapter.pushData(results?.results ?: Collections.emptyList())
                     }
                 }
 
@@ -337,19 +335,14 @@ class PlacePickerActivity : AppCompatActivity() {
         markerDrawableRes = intent.getIntExtra(PlacePickerConstants.MARKER_DRAWABLE_RES_INTENT, -1)
         markerColorRes = intent.getIntExtra(PlacePickerConstants.MARKER_COLOR_RES_INTENT, -1)
         fabColorRes = intent.getIntExtra(PlacePickerConstants.FAB_COLOR_RES_INTENT, -1)
-        primaryTextColorRes =
-            intent.getIntExtra(PlacePickerConstants.PRIMARY_TEXT_COLOR_RES_INTENT, -1)
-        secondaryTextColorRes =
-            intent.getIntExtra(PlacePickerConstants.SECONDARY_TEXT_COLOR_RES_INTENT, -1)
-        bottomViewColorRes =
-            intent.getIntExtra(PlacePickerConstants.BOTTOM_VIEW_COLOR_RES_INTENT, -1)
-        mapRawResourceStyleRes =
-            intent.getIntExtra(PlacePickerConstants.MAP_RAW_STYLE_RES_INTENT, -1)
-        mapType =
-            intent.getSerializableExtra(PlacePickerConstants.MAP_TYPE_INTENT) as PlacePickerMapType
-        onlyCoordinates =
-            intent.getBooleanExtra(PlacePickerConstants.ONLY_COORDINATES_INTENT, false)
+        primaryTextColorRes = intent.getIntExtra(PlacePickerConstants.PRIMARY_TEXT_COLOR_RES_INTENT, -1)
+        secondaryTextColorRes = intent.getIntExtra(PlacePickerConstants.SECONDARY_TEXT_COLOR_RES_INTENT, -1)
+        bottomViewColorRes = intent.getIntExtra(PlacePickerConstants.BOTTOM_VIEW_COLOR_RES_INTENT, -1)
+        mapRawResourceStyleRes = intent.getIntExtra(PlacePickerConstants.MAP_RAW_STYLE_RES_INTENT, -1)
+        mapType = intent.getSerializableExtra(PlacePickerConstants.MAP_TYPE_INTENT) as PlacePickerMapType
+        onlyCoordinates = intent.getBooleanExtra(PlacePickerConstants.ONLY_COORDINATES_INTENT, false)
         googleApiKey = intent.getStringExtra(PlacePickerConstants.GOOGLE_API_KEY)
+        language = intent.getStringExtra(PlacePickerConstants.LANGUAGE) ?: Locale.getDefault().language
         searchBarEnable = intent.getBooleanExtra(PlacePickerConstants.SEARCH_BAR_ENABLE, false)
     }
 
@@ -358,7 +351,7 @@ class PlacePickerActivity : AppCompatActivity() {
             return
         val returnIntent = Intent()
         try {
-            val geoCoder = Geocoder(this, Locale.getDefault())
+            val geoCoder = Geocoder(this, Locale(language))
             val addresses = geoCoder.getFromLocation(latLng.latitude, latLng.longitude, 1)
             if (addresses.isNotEmpty()) {
                 returnIntent.putExtra(PlacePickerConstants.ADDRESS_INTENT, addresses[0])

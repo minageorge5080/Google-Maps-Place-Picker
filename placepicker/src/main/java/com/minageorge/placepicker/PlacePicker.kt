@@ -28,10 +28,12 @@ class PlacePickerIntentBuilder {
     private var disableBottomSheetAnimation: Boolean = false
     private var googleApiKey: String? = null
     private var searchBarEnable: Boolean = false
+    private var language: String? = null
 
     fun setLatLong(
         latitude: Double,
-        longitude: Double) = apply {
+        longitude: Double
+    ) = apply {
         this.latitude = latitude
         this.longitude = longitude
     }
@@ -43,16 +45,19 @@ class PlacePickerIntentBuilder {
 
     fun setMapZoom(zoom: Float) = apply { this.zoom = zoom }
 
+    fun setLanguage(language: String) = apply { this.language = language }
+
     fun setFabColor(@ColorRes fabBackgroundColor: Int) =
         apply { this.fabBackgroundColorRes = fabBackgroundColor }
 
     fun setMapRawResourceStyle(@RawRes mapRawResourceStyleRes: Int) =
         apply { this.mapRawResourceStyleRes = mapRawResourceStyleRes }
 
-    fun setMapType(placePickerMapType: PlacePickerMapType) = apply { this.placePickerMapType = placePickerMapType }
+    fun setMapType(placePickerMapType: PlacePickerMapType) =
+        apply { this.placePickerMapType = placePickerMapType }
 
 
-    fun build(activity: Activity) :Intent{
+    fun build(activity: Activity): Intent {
         this.activity = activity
         val intent = Intent(activity, PlacePickerActivity::class.java)
         intent.putExtra(PlacePickerConstants.ADDRESS_REQUIRED_INTENT, addressRequired)
@@ -72,6 +77,7 @@ class PlacePickerIntentBuilder {
         intent.putExtra(PlacePickerConstants.ONLY_COORDINATES_INTENT, onlyCoordinates)
         intent.putExtra(PlacePickerConstants.GOOGLE_API_KEY, googleApiKey)
         intent.putExtra(PlacePickerConstants.SEARCH_BAR_ENABLE, searchBarEnable)
+        intent.putExtra(PlacePickerConstants.LANGUAGE, language)
         return intent
     }
 }
