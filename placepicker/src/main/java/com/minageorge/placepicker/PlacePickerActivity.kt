@@ -307,7 +307,7 @@ class PlacePickerActivity : AppCompatActivity() {
                 }
 
                 override fun onError(anError: ANError?) {
-
+                    Log.d(TAG, anError.toString())
                 }
 
             })
@@ -335,14 +335,21 @@ class PlacePickerActivity : AppCompatActivity() {
         markerDrawableRes = intent.getIntExtra(PlacePickerConstants.MARKER_DRAWABLE_RES_INTENT, -1)
         markerColorRes = intent.getIntExtra(PlacePickerConstants.MARKER_COLOR_RES_INTENT, -1)
         fabColorRes = intent.getIntExtra(PlacePickerConstants.FAB_COLOR_RES_INTENT, -1)
-        primaryTextColorRes = intent.getIntExtra(PlacePickerConstants.PRIMARY_TEXT_COLOR_RES_INTENT, -1)
-        secondaryTextColorRes = intent.getIntExtra(PlacePickerConstants.SECONDARY_TEXT_COLOR_RES_INTENT, -1)
-        bottomViewColorRes = intent.getIntExtra(PlacePickerConstants.BOTTOM_VIEW_COLOR_RES_INTENT, -1)
-        mapRawResourceStyleRes = intent.getIntExtra(PlacePickerConstants.MAP_RAW_STYLE_RES_INTENT, -1)
-        mapType = intent.getSerializableExtra(PlacePickerConstants.MAP_TYPE_INTENT) as PlacePickerMapType
-        onlyCoordinates = intent.getBooleanExtra(PlacePickerConstants.ONLY_COORDINATES_INTENT, false)
+        primaryTextColorRes =
+            intent.getIntExtra(PlacePickerConstants.PRIMARY_TEXT_COLOR_RES_INTENT, -1)
+        secondaryTextColorRes =
+            intent.getIntExtra(PlacePickerConstants.SECONDARY_TEXT_COLOR_RES_INTENT, -1)
+        bottomViewColorRes =
+            intent.getIntExtra(PlacePickerConstants.BOTTOM_VIEW_COLOR_RES_INTENT, -1)
+        mapRawResourceStyleRes =
+            intent.getIntExtra(PlacePickerConstants.MAP_RAW_STYLE_RES_INTENT, -1)
+        mapType =
+            intent.getSerializableExtra(PlacePickerConstants.MAP_TYPE_INTENT) as PlacePickerMapType
+        onlyCoordinates =
+            intent.getBooleanExtra(PlacePickerConstants.ONLY_COORDINATES_INTENT, false)
         googleApiKey = intent.getStringExtra(PlacePickerConstants.GOOGLE_API_KEY)
-        language = intent.getStringExtra(PlacePickerConstants.LANGUAGE) ?: Locale.getDefault().language
+        language =
+            intent.getStringExtra(PlacePickerConstants.LANGUAGE) ?: Locale.getDefault().language
         searchBarEnable = intent.getBooleanExtra(PlacePickerConstants.SEARCH_BAR_ENABLE, false)
     }
 
