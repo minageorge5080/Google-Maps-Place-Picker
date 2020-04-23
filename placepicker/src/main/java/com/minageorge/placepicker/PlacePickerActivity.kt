@@ -299,6 +299,7 @@ class PlacePickerActivity : AppCompatActivity() {
             .build()
             .getAsJSONObject(object : JSONObjectRequestListener {
                 override fun onResponse(response: JSONObject?) {
+                    Toast.makeText(this@PlacePickerActivity,response.toString(),Toast.LENGTH_LONG).show()
                     response?.let {
                         val results: NearByPlacesResponse? =
                             Gson().fromJson(it.toString(), NearByPlacesResponse::class.java)
@@ -307,6 +308,7 @@ class PlacePickerActivity : AppCompatActivity() {
                 }
 
                 override fun onError(anError: ANError?) {
+                    Toast.makeText(this@PlacePickerActivity,anError.toString(),Toast.LENGTH_LONG).show()
                     Log.d(TAG, anError.toString())
                 }
 
